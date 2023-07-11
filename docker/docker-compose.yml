@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: ${DB_SERVICE_CONTAINER}
+    domainname: ${DB_SERVICE_CONTAINER}
+    image: postgres:15
+    restart: always
+    networks:
+      - trello
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    volumes:
+      - db:/var/lib/posgresql
+
+  api:
+    container_name: ${API_SERVICE_CONTAINER}
+    domainname: ${API_SERVICE_CONTAINER}
+    image: node:18
+    working_dir: /home/node/app
+    networks:
+      - trello
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      - POSTGRES_PORT
+      - POSTGRS_URL=${DB_SERVICE_CONTAINER}
+
+networks:
+  trello:
+    driver: bridge
+
+volumes:
+  db:
