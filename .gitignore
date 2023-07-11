@@ -3,4 +3,5 @@ node_modules
 
 .vscode
 .DS_Store
-.angular/cache
+/client/.angular/cache
+environments
