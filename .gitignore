@@ -1,2 +1,8 @@
 .env
 node_modules
+
+.vscode
+.DS_Store
+/client/.angular/cache
+environments
+dist
