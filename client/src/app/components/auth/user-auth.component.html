@@ -51,7 +51,9 @@
             Password is required.
           </mat-error>
 
-          <mat-error *ngIf="form.get('password')?.value?.length < 6">
+          <mat-error
+            *ngIf="form.get('password')?.value?.length < 6 && isSignUp"
+          >
             Password must be longer than 6 characters.
           </mat-error>
         </mat-form-field>

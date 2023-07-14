@@ -59,7 +59,10 @@ export class UserAuthComponent implements OnInit, OnDestroy {
       this._setRepeatPassSubscription();
     } else {
       this.form = new FormGroup({
-        email: new FormControl<string>('', [Validators.required]),
+        email: new FormControl<string>('', [
+          Validators.required,
+          Validators.email,
+        ]),
         password: new FormControl<string>('', [Validators.required]),
       });
     }
@@ -103,8 +106,8 @@ export class UserAuthComponent implements OnInit, OnDestroy {
       this._signUp(newUser);
     } else {
       const user = {
-        username: formValue.username.trim(),
-        password: formValue.username.trim(),
+        username: formValue.email.trim(),
+        password: formValue.password.trim(),
       };
       this._login(user);
     }
