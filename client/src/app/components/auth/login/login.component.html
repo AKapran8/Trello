@@ -12,6 +12,11 @@
             matInput
             placeholder="Enter your username"
           />
+          <mat-hint
+            *ngIf="form.get('login')?.touched && !form.get('login')?.value"
+            class="error-text"
+            >User Name is required.</mat-hint
+          >
         </mat-form-field>
 
         <mat-form-field appearance="fill">
@@ -32,9 +37,23 @@
               showPassword ? "visibility" : "visibility_off"
             }}</mat-icon>
           </button>
+          <mat-hint
+            *ngIf="
+              form.get('password')?.touched && !form.get('password')?.value
+            "
+            class="error-text"
+            >Password is required.</mat-hint
+          >
         </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid" >Sign In</button>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="!form.valid"
+        >
+          Sign In
+        </button>
       </form>
     </mat-card-content>
   </mat-card>

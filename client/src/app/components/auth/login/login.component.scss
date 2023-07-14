@@ -1,8 +1,7 @@
 .login-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  margin-top: 5rem;
 }
 
 mat-card {
@@ -31,4 +30,8 @@ mat-form-field {
 
 button {
   align-self: flex-end;
+}
+
+.error-text {
+  color: red;
 }
