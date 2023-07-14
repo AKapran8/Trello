@@ -1,0 +1,94 @@
+<div class="auth-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ isSignUp ? "Sign Up" : "Login" }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content *ngIf="form">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            formControlName="email"
+            placeholder="Enter your email"
+          />
+          <mat-error
+            *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
+          >
+            Please enter a valid email.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" *ngIf="isSignUp">
+          <mat-label>Username</mat-label>
+          <input
+            matInput
+            formControlName="username"
+            placeholder="Enter your username"
+          />
+          <mat-error
+            *ngIf="
+              form.get('username')?.invalid && form.get('username')?.touched
+            "
+          >
+            Username is required.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            formControlName="password"
+            type="password"
+            placeholder="Enter your password"
+          />
+          <mat-error
+            *ngIf="
+              form.get('password')?.touched && !form.get('password')?.value
+            "
+          >
+            Password is required.
+          </mat-error>
+
+          <mat-error *ngIf="form.get('password')?.value?.length < 6">
+            Password must be longer than 6 characters.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" *ngIf="isSignUp">
+          <mat-label>Repeat Password</mat-label>
+          <input
+            matInput
+            formControlName="repeatPassword"
+            type="password"
+            placeholder="Repeat your password"
+          />
+          <mat-error
+            *ngIf="
+              !form.get('repeatPassword')?.value &&
+              form.get('repeatPassword')?.touched
+            "
+          >
+            Please, repeat a password.
+          </mat-error>
+
+          <mat-error
+            *ngIf="form?.get('repeatPassword')?.errors?.['passwordMismatch']"
+          >
+            Passwords do not match.
+          </mat-error>
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="form.invalid"
+        >
+          Sign {{ isSignUp ? "Up" : "In" }}
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

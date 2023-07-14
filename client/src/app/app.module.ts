@@ -11,9 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
-import { LoginComponent } from 'src/app/components/auth/login/login.component';
-import { SignUpComponent } from 'src/app/components/auth/sign-up/sign-up.component';
 import { HomeComponent } from 'src/app/components/home/home.component';
+import { UserAuthComponent } from './components/auth/user-auth.component';
 
 /* Angular Material imports */
 import {MatButtonModule} from '@angular/material/button';
@@ -28,9 +27,8 @@ import {MatIconModule} from '@angular/material/icon';
   declarations: [
     AppComponent,
     HeaderComponent,
-    LoginComponent,
-    SignUpComponent,
-    HomeComponent
+    HomeComponent,
+    UserAuthComponent,
   ],
   imports: [
     BrowserModule,
