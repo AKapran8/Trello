@@ -24,8 +24,12 @@ restart:  ## Restart all started containers
 #Exec --------------------------------------------------
 api_exec: ## exec bash on api container
 	docker exec -it $(API_SERVICE_CONTAINER) bash
+client_exec: ## exec bash on api container
+	docker exec -it $(CLIENT_SERVICE_CONTAINER) bash
 
 ---------------: ## ------[ LOGS ]---------
 #Logs --------------------------------------------------
 api_log: ## Show log from api container
 	docker logs -tf -n 1000 $(API_SERVICE_CONTAINER)
+client_log: ## Show log from api container
+	docker logs -tf -n 1000 $(CLIENT_SERVICE_CONTAINER)
