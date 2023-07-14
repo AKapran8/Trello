@@ -34,7 +34,6 @@ api_log: ## Show log from api container
 	docker logs -tf -n 1000 $(API_SERVICE_CONTAINER)
 client_log: ## Show log from api container
 	docker logs -tf -n 1000 $(CLIENT_SERVICE_CONTAINER)
-
 ---------------: ## ------[ Initial ]---------
 #Logs --------------------------------------------------
 init: client_init server_init prisma_init ## Init whole project
