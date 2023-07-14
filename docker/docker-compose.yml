@@ -20,6 +20,7 @@ services:
     domainname: ${API_SERVICE_CONTAINER}
     image: node:18
     working_dir: /home/node/app
+    user: node
     networks:
       - trello
     environment:
