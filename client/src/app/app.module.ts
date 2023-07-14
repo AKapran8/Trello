@@ -7,21 +7,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+/* Angular Material imports */
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+
 /* Components */
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent } from './app-component/app.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { HomeComponent } from 'src/app/components/home/home.component';
 import { UserAuthComponent } from './components/auth/user-auth.component';
-
-/* Angular Material imports */
-import {MatButtonModule} from '@angular/material/button';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatCardModule} from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatIconModule} from '@angular/material/icon';
-
+import { ListsComponent } from './components/lists/lists.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +29,7 @@ import {MatIconModule} from '@angular/material/icon';
     HeaderComponent,
     HomeComponent,
     UserAuthComponent,
+    ListsComponent
   ],
   imports: [
     BrowserModule,
@@ -43,9 +44,9 @@ import {MatIconModule} from '@angular/material/icon';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
