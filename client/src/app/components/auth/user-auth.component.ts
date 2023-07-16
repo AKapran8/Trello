@@ -6,11 +6,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription, debounceTime } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { catchError, take } from 'rxjs/operators';
 
 import { AuthService } from './auth.service';
+import { INewUser, IUser, IUserAuthResponse } from './user.model';
 
 @Component({
   selector: 'app-user-auth',
@@ -19,6 +20,7 @@ import { AuthService } from './auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserAuthComponent implements OnInit, OnDestroy {
+  public isSubmitting: boolean = false;
   public isSignUp: boolean = false;
   public form: FormGroup | null = null;
 
@@ -28,7 +30,8 @@ export class UserAuthComponent implements OnInit, OnDestroy {
   constructor(
     private _authService: AuthService,
     private _cdr: ChangeDetectorRef,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _router: Router
   ) {}
 
   ngOnInit() {
@@ -41,7 +44,7 @@ export class UserAuthComponent implements OnInit, OnDestroy {
   private _initForm(): void {
     if (this.isSignUp) {
       this.form = new FormGroup({
-        username: new FormControl<string>('', [Validators.required]),
+        username: new FormControl<string>('' /*[Validators.required]*/),
         email: new FormControl<string>('', [
           Validators.required,
           Validators.email,
@@ -91,45 +94,78 @@ export class UserAuthComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    if (this.form?.invalid) {
-      return;
-    }
+    if (this.form?.invalid) return;
+
+    this.isSubmitting = true;
+
     const formValue = this.form?.getRawValue();
 
+    const email: string = formValue.email.trim().toLowerCase();
+    const password: string = formValue.password.trim();
+
     if (this.isSignUp) {
-      const newUser = {
-        username: formValue.username.trim(),
-        email: formValue.username.trim().toLowerCase(),
-        password: formValue.username.trim(),
-        repeatPassword: formValue.username.trim(),
+      const newUser: INewUser = {
+        email,
+        password,
+        // username: formValue.username.trim(),
       };
       this._signUp(newUser);
     } else {
-      const user = {
-        username: formValue.email.trim(),
-        password: formValue.password.trim(),
+      const user: IUser = {
+        email,
+        password,
       };
       this._login(user);
     }
+
+    this._cdr.markForCheck();
   }
 
-  private _login(user: any): void {
+  private _login(user: IUser): void {
     this._authService
       .login(user)
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        catchError((error: any) => {
+          this.isSubmitting = false;
+          return [];
+        })
+      )
       .subscribe({
-        next: (res) => {},
-        error(err) {},
+        next: (res: IUserAuthResponse) => {
+          if (res.id) {
+            this._router.navigate(['']);
+            this.isSubmitting = false;
+          }
+        },
+        error: (err: any) => {
+          this.isSubmitting = false;
+          this._cdr.markForCheck();
+        },
       });
   }
 
-  private _signUp(user: any): void {
+  private _signUp(user: INewUser): void {
     this._authService
-      .signup(user)
-      .pipe(take(1))
+      .register(user)
+      .pipe(
+        take(1),
+        catchError((error: any) => {
+          this.isSubmitting = false;
+          return [];
+        })
+      )
       .subscribe({
-        next: (res) => {},
-        error(err) {},
+        next: (res: IUserAuthResponse) => {
+          if (res.id) {
+            this._router.navigate(['']);
+            this.isSubmitting = false;
+          }
+        },
+        error: (err: any) => {
+          this.isSubmitting = false;
+          this._cdr.markForCheck();
+        },
       });
   }
 

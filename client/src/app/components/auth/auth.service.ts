@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 
+import { IUserAuthResponse, IUser, INewUser } from './user.model';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -12,11 +14,11 @@ export class AuthService {
 
   constructor(private _http: HttpClient) {}
 
-  public login(user: any): Observable<any> {
-    return this._http.post<any>(`${this.url}/login`, { body: user });
+  public login(user: IUser): Observable<IUserAuthResponse> {
+    return this._http.post<IUserAuthResponse>(`${this.url}/login`, user);
   }
 
-  public signup(user: any): Observable<any> {
-    return this._http.post<any>(`${this.url}/sign-up`, { body: user });
+  public register(newUser: INewUser): Observable<IUserAuthResponse> {
+    return this._http.post<IUserAuthResponse>(`${this.url}/register`, newUser);
   }
 }

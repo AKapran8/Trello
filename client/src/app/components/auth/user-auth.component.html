@@ -86,7 +86,7 @@
           mat-raised-button
           color="primary"
           type="submit"
-          [disabled]="form.invalid"
+          [disabled]="form.invalid || isSubmitting"
         >
           Sign {{ isSignUp ? "Up" : "In" }}
         </button>

@@ -22,6 +22,7 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
 import { HomeComponent } from 'src/app/components/home/home.component';
 import { UserAuthComponent } from './components/auth/user-auth.component';
 import { ListsComponent } from './components/lists/lists.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ListsComponent } from './components/lists/lists.component';
     HeaderComponent,
     HomeComponent,
     UserAuthComponent,
-    ListsComponent
+    ListsComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
