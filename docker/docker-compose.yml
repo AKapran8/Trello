@@ -13,7 +13,7 @@ services:
       - POSTGRES_PASSWORD
       - POSTGRES_DB
     volumes:
-      - db:/var/lib/posgresql
+      - db:/var/lib/postgresql/data
 
   api:
     container_name: ${API_SERVICE_CONTAINER}
@@ -29,6 +29,8 @@ services:
       - POSTGRES_DB
       - POSTGRES_PORT
       - POSTGRS_URL=${DB_SERVICE_CONTAINER}
+    depends_on:
+      - db
 
   client:
     container_name: ${CLIENT_SERVICE_CONTAINER}
@@ -40,6 +42,8 @@ services:
       - trello
     environment:
       - SERVER_URL=${API_SERVICE_CONTAINER}
+    depends_on:
+      - api
 
 networks:
   trello:

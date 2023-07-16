@@ -26,7 +26,6 @@ model Table {
   Admin       User     @relation(fields: [adminId], references: [id])
   // usersIds
   // users
-  folders_id  Int[]
   Folders     Folder[]
 }
 
@@ -36,13 +35,16 @@ model Folder {
   position Int
   Table    Table  @relation(fields: [tableId], references: [id])
   tableId  Int
+  Tasks    Task[]
 }
 
 model Task {
   id          Int    @id @default(autoincrement())
   title       String
   description String
+  position    Int
   authorId    Int
   Author      User   @relation(fields: [authorId], references: [id])
-  position    Int
+  folderId    Int
+  Folder      Folder @relation(fields: [folderId], references: [id])
 }

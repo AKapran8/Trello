@@ -1,7 +1,7 @@
-const http = require('node:http');
+const { server } = require("./server");
 
-const server = http.createServer((req, res) => {
-    res.end('end')
+const PORT = process.env.API_PORT || 3000
+
+server.listen(PORT, async () => {
+    console.log('Server started on port:', PORT)
 })
-
-server.listen(process.env.API_PORT, () => console.log(`server started on port: ${process.env.API_PORT}`))
