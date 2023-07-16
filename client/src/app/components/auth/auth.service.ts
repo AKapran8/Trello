@@ -21,4 +21,8 @@ export class AuthService {
   public register(newUser: INewUser): Observable<IUserAuthResponse> {
     return this._http.post<IUserAuthResponse>(`${this.url}/register`, newUser);
   }
+
+  public logout(): void {
+    this._http.get<any>(`${this.url}/logout`);
+  }
 }
