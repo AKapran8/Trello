@@ -136,6 +136,7 @@ export class UserAuthComponent implements OnInit, OnDestroy {
           if (res.id) {
             this._router.navigate(['']);
             this.isSubmitting = false;
+            localStorage.setItem('userId', JSON.stringify(res.id));
           }
         },
         error: (err: any) => {

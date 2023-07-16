@@ -15,13 +15,26 @@ import { AuthService } from '../auth/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
+  public isAuthorized: boolean = false;
+
   constructor(
     private _authService: AuthService,
     private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._checkUserValidity();
+  }
+
+  private _checkUserValidity(): void {
+    const userId: string = JSON.parse(
+      JSON.stringify(localStorage.getItem('userId'))
+    );
+    if (userId && Number(userId)) {
+      this.isAuthorized = true;
+    }
+  }
 
   logoutHandler(): void {
     const dialogRef = this._dialog.open(ConfirmDialog, {

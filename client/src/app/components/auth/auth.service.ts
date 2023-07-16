@@ -24,5 +24,6 @@ export class AuthService {
 
   public logout(): void {
     this._http.get<any>(`${this.url}/logout`);
+    localStorage.removeItem('userId');
   }
 }
