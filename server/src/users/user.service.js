@@ -18,7 +18,7 @@ const login = async (email, password) => {
     try {
         const findedUser = await userDb.findUnique({ where: { email } })
         if (findedUser === null) throw new Error('Wrong credentials')
-        const hashedPass = crypto.createHash('sha256').update(password).digest().toString()
+        const hashedPass = crypto.createHash('sha256').update(password).digest('base64')
         if (findedUser.password !== hashedPass) throw new Error('Wrong credentials')
         return findedUser
     } catch (error) {
