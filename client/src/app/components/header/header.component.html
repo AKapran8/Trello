@@ -1,9 +1,31 @@
 <header class="header">
   <mat-toolbar color="primary">
-    <span routerLink="" >Trello Clone</span>
+    <span routerLink="">Trello Clone</span>
     <span class="spacer"></span>
-    <button mat-button routerLink="account/login" routerLinkActive="active" class="login-btn" >Login</button>
-    <button mat-button routerLink="account/sign-up" routerLinkActive="active">Sign up</button>
-    <button mat-button routerLink="" *ngIf="false" >Sign out</button>
+    <button
+      mat-button
+      routerLink="account/login"
+      routerLinkActive="active"
+      *ngIf="!isAuthorized"
+      class="login-btn"
+    >
+      Login
+    </button>
+    <button
+      mat-button
+      routerLink="account/sign-up"
+      routerLinkActive="active"
+      *ngIf="!isAuthorized"
+    >
+      Sign up
+    </button>
+    <button
+      mat-button
+      routerLink=""
+      *ngIf="isAuthorized"
+      (click)="logoutHandler()"
+    >
+      Sign out
+    </button>
   </mat-toolbar>
 </header>

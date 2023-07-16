@@ -14,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 /* Components */
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +23,8 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
 import { HomeComponent } from 'src/app/components/home/home.component';
 import { UserAuthComponent } from './components/auth/user-auth.component';
 import { ListsComponent } from './components/lists/lists.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { ConfirmDialog } from './components/shared/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,9 @@ import { ListsComponent } from './components/lists/lists.component';
     HeaderComponent,
     HomeComponent,
     UserAuthComponent,
-    ListsComponent
+    ListsComponent,
+    SidebarComponent,
+    ConfirmDialog,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +50,7 @@ import { ListsComponent } from './components/lists/lists.component';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
