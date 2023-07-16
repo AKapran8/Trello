@@ -13,7 +13,7 @@ server.use(session({
 server.use(express.json())
 
 
-server.use(apiRouter)
+server.use("/api", apiRouter)
 
 server.use((err, req, res, next) => {
     res.statusCode = 400
