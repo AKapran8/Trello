@@ -21,6 +21,8 @@ import { INewUser, IUser, IUserAuthResponse } from './user.model';
 })
 export class UserAuthComponent implements OnInit, OnDestroy {
   public isSubmitting: boolean = false;
+  public showPassword = false;
+  public showRepeatPassword = false;
   public isSignUp: boolean = false;
   public form: FormGroup | null = null;
 
@@ -93,7 +95,17 @@ export class UserAuthComponent implements OnInit, OnDestroy {
       });
   }
 
-  onSubmit() {
+  public togglePasswordVisibility(repeatPassword?: boolean): void {
+    if (repeatPassword) {
+      this.showRepeatPassword = !this.showRepeatPassword;
+    } else {
+      this.showPassword = !this.showPassword;
+    }
+  }
+
+
+
+  public onSubmit(): void {
     if (this.form?.invalid) return;
 
     this.isSubmitting = true;

@@ -40,32 +40,32 @@
           <input
             matInput
             formControlName="password"
-            type="password"
+            [type]="showPassword ? 'text' : 'password'"
             placeholder="Enter your password"
           />
-          <mat-error
-            *ngIf="
-              form.get('password')?.touched && !form.get('password')?.value
-            "
-          >
+          <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+            <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="form.get('password')?.touched && !form.get('password')?.value">
             Password is required.
           </mat-error>
-
-          <mat-error
-            *ngIf="form.get('password')?.value?.length < 6 && isSignUp"
-          >
+          <mat-error *ngIf="form.get('password')?.value?.length < 6 && isSignUp">
             Password must be longer than 6 characters.
           </mat-error>
         </mat-form-field>
+        
 
         <mat-form-field appearance="fill" *ngIf="isSignUp">
           <mat-label>Repeat Password</mat-label>
           <input
             matInput
             formControlName="repeatPassword"
-            type="password"
+            [type]="showRepeatPassword ? 'text' : 'password'"
             placeholder="Repeat your password"
           />
+          <button mat-icon-button matSuffix (click)="togglePasswordVisibility(true)">
+            <mat-icon>{{ showRepeatPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+          </button>
           <mat-error
             *ngIf="
               !form.get('repeatPassword')?.value &&
