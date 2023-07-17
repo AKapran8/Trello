@@ -13,7 +13,7 @@ const createTask = async ({ userId, folderId, title, description }) => {
 
 const deleteTask = async ({ id }) => {
     try {
-        await tasksDb.delete({ where: { id: Number(id) } })
+        await tasksDb.delete({ where: { id } })
         return true
     } catch (error) {
         throw new Error('Task not found')
