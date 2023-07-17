@@ -1,6 +1,8 @@
 const tableController = require('express').Router({ mergeParams: true });
 const tableService = require('./table.service');
 const { userHaveAccesToTable } = require('../middlewares/isUserHaveAccesToTable');
+const { requestValidator } = require('../helpers/validator');
+const { createTableSchema, paramsTableIdSchema } = require('./table.schemas');
 
 tableController.get('/', async (req, res, next) => {
     try {
@@ -14,7 +16,7 @@ tableController.get('/', async (req, res, next) => {
 })
 
 
-tableController.post('/', async (req, res, next) => {
+tableController.post('/', requestValidator(createTableSchema), async (req, res, next) => {
     try {
         const { body } = req
         const userId = req.session.user.id
@@ -26,9 +28,9 @@ tableController.post('/', async (req, res, next) => {
     }
 })
 
-tableController.route('/:tableId').all(userHaveAccesToTable).get(async (req, res, next) => {
+tableController.route('/:tableId').all(requestValidator(paramsTableIdSchema), userHaveAccesToTable).get(requestValidator(''), async (req, res, next) => {
     try {
-        const { tableId } = req.params
+        const { tableId } = res.locals.params
         const table = await tableService.getTableDataById(tableId)
         res.json({ table })
     } catch (error) {
@@ -37,7 +39,7 @@ tableController.route('/:tableId').all(userHaveAccesToTable).get(async (req, res
     }
 }).delete(async (req, res, next) => {
     try {
-        const { tableId } = req.params
+        const { tableId } = res.locals.params
         await tableService.deleteTable(tableId)
         res.json({ status: true })
     } catch (error) {
