@@ -22,9 +22,10 @@ import { AppComponent } from './app-component/app.component';
 import { HeaderComponent } from 'src/app/components/header/header.component';
 import { HomeComponent } from 'src/app/components/home/home.component';
 import { UserAuthComponent } from './components/auth/user-auth.component';
-import { ListsComponent } from './components/lists/lists.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ConfirmDialog } from './components/shared/dialog/dialog.component';
+import { WorkspacesListComponent } from './components/workspaces/workspaces-list/workspaces-list.component';
+import { AddWorkspaceDialogComponent } from './components/workspaces/add-workspace-dialog/add-workspace-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,9 +33,10 @@ import { ConfirmDialog } from './components/shared/dialog/dialog.component';
     HeaderComponent,
     HomeComponent,
     UserAuthComponent,
-    ListsComponent,
     SidebarComponent,
     ConfirmDialog,
+    WorkspacesListComponent,
+    AddWorkspaceDialogComponent,
   ],
   imports: [
     BrowserModule,

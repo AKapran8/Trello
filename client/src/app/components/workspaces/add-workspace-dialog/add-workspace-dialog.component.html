@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Create New Workspace</h2>
+<mat-dialog-content class="mat-typography">
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="title" placeholder="Enter Title" />
+      <mat-error
+        *ngIf="form.get('title')?.invalid && form.get('title')?.touched"
+      >
+        Title is required.
+      </mat-error>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      Create
+    </button>
+  </form>
+</mat-dialog-content>

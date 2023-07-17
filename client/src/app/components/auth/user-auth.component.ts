@@ -10,7 +10,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription, debounceTime } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
 
-import { AuthService } from './auth.service';
+import { AuthService } from './service/auth.service';
 import { INewUser, IUser, IUserAuthResponse } from './user.model';
 
 @Component({
@@ -64,11 +64,11 @@ export class UserAuthComponent implements OnInit, OnDestroy {
       this._setRepeatPassSubscription();
     } else {
       this.form = new FormGroup({
-        email: new FormControl<string>('', [
+        email: new FormControl<string>('wlyapa@qwe.com', [
           Validators.required,
           Validators.email,
         ]),
-        password: new FormControl<string>('', [Validators.required]),
+        password: new FormControl<string>('wlyapa@qwe.com', [Validators.required]),
       });
     }
 
