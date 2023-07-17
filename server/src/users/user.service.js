@@ -3,10 +3,10 @@ const userDb = new PrismaClient().user
 const crypto = require('crypto');
 
 
-const createUser = async (email, password) => {
+const createUser = async ({ email, password, username }) => {
     try {
         const hashedPass = crypto.createHash('sha256').update(password).digest('base64')
-        const newUser = await userDb.create({ data: { email, password: hashedPass } })
+        const newUser = await userDb.create({ data: { email, username, password: hashedPass } })
         return newUser
     } catch (error) {
         console.error(error)
@@ -14,7 +14,7 @@ const createUser = async (email, password) => {
     }
 }
 
-const login = async (email, password) => {
+const login = async ({ email, password }) => {
     try {
         const findedUser = await userDb.findUnique({ where: { email } })
         if (findedUser === null) throw new Error('Wrong credentials')
