@@ -27,5 +27,13 @@
     >
       Sign out
     </button>
+
+    <button
+      mat-button
+      routerLink=""
+      *ngIf="isAuthorized"
+    >
+      Profile
+    </button>
   </mat-toolbar>
 </header>
