@@ -36,7 +36,7 @@ client_log: ## Show log from api container
 	docker logs -tf -n 1000 $(CLIENT_SERVICE_CONTAINER)
 ---------------: ## ------[ Initial ]---------
 #Initial --------------------------------------------------
-init: client_init server_init prisma_init prisma_push ## Init whole project
+init: down client_init server_init prisma_init prisma_push ## Init whole project
 	echo 'All done'
 client_init: ## Init client
 	echo 'Init Client'
@@ -54,9 +54,15 @@ prisma_init: ## Init prisma client
 #Prisma --------------------------------------------------
 prisma_studio: ## Run prisma studio
 	docker exec -it $(API_SERVICE_CONTAINER) npx prisma studio
-prisma_push: ## Push prisma schema to db
+prisma_push: down ## Push prisma schema to db
 	docker-compose $(COMPOSE_CONFIG) run --no-deps -d --name ${DB_SERVICE_CONTAINER} db
 	sleep 5
-	docker-compose $(COMPOSE_CONFIG) run --no-deps api npx prisma migrate dev
+	docker-compose $(COMPOSE_CONFIG) run --no-deps api npx prisma migrate deploy
+	docker kill ${DB_SERVICE_CONTAINER}
+	docker rm ${DB_SERVICE_CONTAINER}
+prisma_flush_db: down ## Flush db
+	docker-compose $(COMPOSE_CONFIG) run --no-deps -d --name ${DB_SERVICE_CONTAINER} db
+	sleep 5
+	docker-compose $(COMPOSE_CONFIG) run --no-deps api npx prisma migrate reset
 	docker kill ${DB_SERVICE_CONTAINER}
 	docker rm ${DB_SERVICE_CONTAINER}

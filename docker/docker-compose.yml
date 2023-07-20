@@ -29,6 +29,7 @@ services:
       - POSTGRES_DB
       - POSTGRES_PORT
       - POSTGRS_URL=${DB_SERVICE_CONTAINER}
+      - CLIENT_PORT
     depends_on:
       - db
 

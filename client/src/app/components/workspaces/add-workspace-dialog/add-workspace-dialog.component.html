@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+<mat-dialog-content class="mat-typography">
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" placeholder="Enter Title" />
+      <mat-error
+        *ngIf="form.get('title')?.invalid && form.get('title')?.touched"
+      >
+        Title is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        formControlName="description"
+        placeholder="Enter Description"
+      ></textarea>
+      <mat-error
+        *ngIf="
+          form.get('description')?.invalid && form.get('description')?.touched
+        "
+      >
+        Description is required.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-button mat-dialog-close color="primary" type="button">
+        Cancel
+      </button>
+      <div class="spacer"></div>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!form.valid"
+      >
+        Create
+      </button>
+    </div>
+  </form>
+</mat-dialog-content>

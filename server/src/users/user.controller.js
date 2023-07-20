@@ -1,26 +1,24 @@
 const userController = require('express').Router({ mergeParams: true });
+const { loginSchema, registerSchema } = require('./user.schemas');
 const userService = require('./user.service');
+const { requestValidator } = require('../helpers/validator')
 
-userController.post('/login', async (req, res, next) => {
+userController.post('/login', requestValidator(loginSchema), async (req, res, next) => {
     try {
-        const { body: { email, password } } = req
-        const user = await userService.login(email, password)
+        const user = await userService.login(req.body)
         req.session.user = user
         res.json({ email: user.email, id: user.id })
     } catch (error) {
-        console.error(error)
         next(error)
     }
 })
 
-userController.post('/register', async (req, res, next) => {
+userController.post('/register', requestValidator(registerSchema), async (req, res, next) => {
     try {
-        const { body: { email, password } } = req
-        const user = await userService.createUser(email, password)
+        const user = await userService.createUser(req.body)
         req.session.user = user
         res.json({ email: user.email, id: user.id })
     } catch (error) {
-        console.error(error)
         next(error)
     }
 })
@@ -30,7 +28,6 @@ userController.post('/logout', async (req, res, next) => {
         req.session.destroy()
         res.send('ok')
     } catch (error) {
-        console.error(error)
         next(error)
     }
 })
