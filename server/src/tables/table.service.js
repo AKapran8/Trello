@@ -24,7 +24,7 @@ const isUserHaveAccessToTable = async (userId, tableId) => {
 
 const getAllTablesByUserId = async (userId) => {
     try {
-        const tables = await tableDb.findMany({ where: { adminId: Number(userId) } })//add or with userId in users
+        const tables = await tableDb.findMany({ where: { adminId: userId } })//add or with userId in users
         return tables
     } catch (error) {
         console.error(error)

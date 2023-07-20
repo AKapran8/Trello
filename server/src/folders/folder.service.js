@@ -15,7 +15,7 @@ const createFolder = async ({ tableId, title }) => {
 const deleteFolder = async ({ folderId }) => {
     try {
         console.log(Number(folderId))
-        await folderDb.delete({ where: { id: Number(folderId) } })
+        await folderDb.delete({ where: { id: folderId } })
         return true
     } catch (error) {
         console.error(error)

@@ -1,9 +1,11 @@
 const tasksController = require('express').Router({ mergeParams: true });
+const { requestValidator } = require('../helpers/validator');
+const { createTaskSchema, paramsTaskIdSchema } = require('./task.schemas');
 const tasksService = require('./tasks.service');
 
-tasksController.delete('/:taskId', async (req, res, next) => {
+tasksController.delete('/:taskId', requestValidator(paramsTaskIdSchema), async (req, res, next) => {
     try {
-        const { taskId } = req.params
+        const { taskId } = res.locals.params
         const deletedTask = await tasksService.deleteTask({ id: taskId })
         res.json({ status: deletedTask })
     } catch (error) {
@@ -12,10 +14,11 @@ tasksController.delete('/:taskId', async (req, res, next) => {
     }
 })
 
-tasksController.post('/', async (req, res, next) => {
+tasksController.post('/', requestValidator(createTaskSchema), async (req, res, next) => {
     try {
-        const { body, params: { folderId }, session: { user } } = req
-        const newTask = await tasksService.createTask({ folderId, description: body.description, title: body.title, userId: user.id })
+        const { body } = req
+        const { userId, params: { folderId } } = res.locals
+        const newTask = await tasksService.createTask({ folderId, userId, ...body })
         res.json({ task: newTask })
     } catch (error) {
         console.error(error)
