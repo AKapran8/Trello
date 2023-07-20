@@ -1,17 +1,31 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { environment } from 'src/environments/environment';
+import { INewWorkspace, IWorkspaceResponse } from '../workspace.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WorkspacesService {
   private _url: string = `${environment.url}/api/table`;
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) {}
 
-  public getWorkspaces(): Observable<any> {
-    return this._http.get(this._url)
+  public createWorkspace(workspace: INewWorkspace): Observable<any> {
+    return this._http.post<any>(this._url, workspace);
+  }
+
+  public getWorkspaces(): Observable<IWorkspaceResponse> {
+    return this._http.get<IWorkspaceResponse>(this._url);
+  }
+
+  public removeWorkspace(id: number): Observable<any> {
+    return this._http.delete<IWorkspaceResponse>(`this._url/${id}`);
+  }
+
+  public editWorkspace(id: number, body: any): Observable<any> {
+    return this._http.put<IWorkspaceResponse>(`this._url/${id}`, body);
   }
 }

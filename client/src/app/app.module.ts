@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatMenuModule} from '@angular/material/menu';
 
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
@@ -26,7 +27,6 @@ import { HomeComponent } from 'src/app/components/home/home.component';
 import { UserAuthComponent } from './components/auth/user-auth.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ConfirmDialog } from './components/shared/dialog/dialog.component';
-import { WorkspacesListComponent } from './components/workspaces/workspaces-list/workspaces-list.component';
 import { AddWorkspaceDialogComponent } from './components/workspaces/add-workspace-dialog/add-workspace-dialog.component';
 
 @NgModule({
@@ -37,7 +37,6 @@ import { AddWorkspaceDialogComponent } from './components/workspaces/add-workspa
     UserAuthComponent,
     SidebarComponent,
     ConfirmDialog,
-    WorkspacesListComponent,
     AddWorkspaceDialogComponent,
   ],
   imports: [
@@ -55,6 +54,7 @@ import { AddWorkspaceDialogComponent } from './components/workspaces/add-workspa
     MatInputModule,
     MatIconModule,
     MatDialogModule,
+    MatMenuModule
   ],
   providers: [
     {
