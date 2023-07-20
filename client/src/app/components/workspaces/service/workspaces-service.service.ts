@@ -22,10 +22,10 @@ export class WorkspacesService {
   }
 
   public removeWorkspace(id: number): Observable<any> {
-    return this._http.delete<IWorkspaceResponse>(`this._url/${id}`);
+    return this._http.delete<IWorkspaceResponse>(`${this._url}/${id}`);
   }
 
   public editWorkspace(id: number, body: any): Observable<any> {
-    return this._http.put<IWorkspaceResponse>(`this._url/${id}`, body);
+    return this._http.put<IWorkspaceResponse>(`${this._url}/${id}`, body);
   }
 }

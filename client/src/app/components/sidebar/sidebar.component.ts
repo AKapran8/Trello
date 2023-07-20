@@ -40,8 +40,6 @@ export class SidebarComponent implements OnInit {
         if (res?.tables?.length) {
           this.workspaces = [...res.tables];
           this._cdr.markForCheck();
-
-          this.editWorkspace(this.workspaces[0]);
         }
       });
   }
@@ -71,7 +69,9 @@ export class SidebarComponent implements OnInit {
         this._workspacesService
           .removeWorkspace(id)
           .pipe(take(1))
-          .subscribe((res) => {});
+          .subscribe((_) => {
+            this._getWorkspaces();
+          });
       }
     });
   }
