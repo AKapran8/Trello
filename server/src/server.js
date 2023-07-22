@@ -20,5 +20,4 @@ server.use("/api", apiRouter)
 
 server.use(...errorHandlers)
 
-
 module.exports = { server }
