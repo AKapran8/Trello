@@ -1,0 +1,28 @@
+<div class="sidebar-container">
+  <div class="sidebar-header">
+    <h2 class="sidebar-title">Workspaces</h2>
+    <mat-icon (click)="addWorkspaceHandler()">add</mat-icon>
+  </div>
+  <div class="sidebar-content" *ngIf="workspaces">
+    <div *ngFor="let w of workspaces">
+      {{ w.title }}
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="deleteWorkspace(w.id, w.title)" >
+          <mat-icon>delete</mat-icon>
+          <span>Remove</span>
+        </button>
+        <button mat-menu-item disabled (click)="editWorkspace(w)">
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</div>
