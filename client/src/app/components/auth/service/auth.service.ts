@@ -2,15 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { environment } from 'src/environments/environment';
-
 import { IUserAuthResponse, IUser, INewUser } from '../user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private _url: string = `${environment.url}/api/auth`;
+  private _url: string = '/auth';
 
   constructor(private _http: HttpClient) {}
 

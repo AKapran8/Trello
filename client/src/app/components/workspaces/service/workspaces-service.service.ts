@@ -2,14 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { environment } from 'src/environments/environment';
 import { INewWorkspace, IWorkspaceResponse } from '../workspace.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WorkspacesService {
-  private _url: string = `${environment.url}/api/table`;
+  private _url: string = '/table';
 
   constructor(private _http: HttpClient) {}
 

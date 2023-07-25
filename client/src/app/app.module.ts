@@ -17,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatMenuModule} from '@angular/material/menu';
 
-import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { AuthInterceptor } from './interceptors/auth-and-api.interceptor';
 
 /* Components */
 import { AppRoutingModule } from './app-routing.module';
@@ -28,6 +28,7 @@ import { UserAuthComponent } from './components/auth/user-auth.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ConfirmDialog } from './components/shared/dialog/dialog.component';
 import { AddWorkspaceDialogComponent } from './components/workspaces/add-workspace-dialog/add-workspace-dialog.component';
+import { WorkspaceItemComponent } from './components/workspace-item/workspace-item.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { AddWorkspaceDialogComponent } from './components/workspaces/add-workspa
     SidebarComponent,
     ConfirmDialog,
     AddWorkspaceDialogComponent,
+    WorkspaceItemComponent,
   ],
   imports: [
     BrowserModule,
