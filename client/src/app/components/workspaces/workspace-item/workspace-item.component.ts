@@ -3,12 +3,16 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   OnDestroy,
   OnInit,
+  ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { WorkspacesService } from '../service/workspaces-service.service';
+import { IWorkspace } from '../workspace.model';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-workspace-item',
@@ -17,6 +21,12 @@ import { WorkspacesService } from '../service/workspaces-service.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkspaceItemComponent implements OnInit, OnDestroy {
+  @ViewChild('folderNameInput') folderNameInput: ElementRef | null = null;
+
+  public showAddNewFolder: boolean = false;
+  public workspace: IWorkspace | null = null;
+  public folderNameControl: FormControl | null = null;
+
   private _workspaceId: number = 0;
   private _routerSub: Subscription | null = null;
 
@@ -43,12 +53,51 @@ export class WorkspaceItemComponent implements OnInit, OnDestroy {
       .getWorkspaceById(this._workspaceId)
       .pipe(take(1))
       .subscribe((res) => {
-        console.log(res);
+        this.workspace = res.table;
+        this._cdr.markForCheck();
       });
   }
 
-  public addFolderHandler(): void {
+  public addFolderBlock(): void {
+    this.showAddNewFolder = true;
+    this.folderNameControl = new FormControl<string>('', [
+      Validators.required,
+      Validators.maxLength(25),
+      Validators.minLength(2),
+    ]);
+    setTimeout(() => {
+      this.folderNameInput?.nativeElement.focus();
+    }, 0);
+    this._cdr.markForCheck();
+  }
 
+  public addNewFolder(): void {
+    if (this.folderNameControl?.invalid) return;
+
+    const value: string = this.folderNameControl?.value?.trim();
+
+    if (!value) return;
+
+    this._workspaceService
+      .addNewFolder(this._workspaceId, value)
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.folderNameControl?.setValue('');
+        this.showAddNewFolder = false;
+        this.workspace?.Folders?.push(res.folder);
+        this._cdr.markForCheck();
+      });
+  }
+
+  public deleteFolder(folderId: number): void {
+    this._workspaceService
+      .deleteFolder(this._workspaceId, folderId)
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.showAddNewFolder = false;
+        this.workspace!.Folders = this.workspace?.Folders?.filter(f => f.id !== folderId) || [];
+        this._cdr.markForCheck();
+      });
   }
 
   ngOnDestroy(): void {

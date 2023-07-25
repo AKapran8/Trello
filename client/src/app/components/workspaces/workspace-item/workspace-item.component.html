@@ -1,16 +1,36 @@
-<div>
-  <div class="row">
-    <div class="col-header add-folder" (click)="addFolderHandler()" > Add new Folder</div>
-    <div class="col-header progress">In progress</div>
-    <div class="col-header done">Done</div>
-  </div>
+<p *ngIf="!workspace">Loading...</p>
+<div *ngIf="workspace" class="workspace-container">
+  <h2 class="workspace-title">Workspace {{ workspace.title }}</h2>
+  <div>
+    <div class="row">
+      <div class="block-elem" *ngFor="let f of workspace.Folders">
+        <div class="col-header current">
+          {{ f.title }}
+          <mat-icon (click)="deleteFolder(f.id)">delete</mat-icon>
+        </div>
+      </div>
 
-  <div class="row">
-    <div class="placeholder">
-      <div class="item" draggable="true">Take me</div>
+      <div
+        class="block-elem col-header new"
+        *ngIf="showAddNewFolder && folderNameControl"
+      >
+        <input
+          type="text"
+          matInput
+          placeholder="Folder Name"
+          #folderNameInput
+          [formControl]="folderNameControl"
+        />
+        <mat-icon (click)="addNewFolder()">done</mat-icon>
+      </div>
+      <div class="block-elem col-header add-folder" (click)="addFolderBlock()">
+        Add new Folder
+        <mat-icon>add</mat-icon>
+      </div>
     </div>
-    <div class="placeholder"></div>
-    <div class="placeholder"></div>
+
+    <div class="row">
+      <div class="block-elem item" draggable="true">Take me</div>
+    </div>
   </div>
 </div>
-
