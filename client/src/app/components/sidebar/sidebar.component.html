@@ -1,4 +1,7 @@
-<div class="sidebar-container">
+<div class="sidebar-container" *ngIf="!isAuthorized">
+  <p>Please login</p>
+</div>
+<div class="sidebar-container" *ngIf="isAuthorized">
   <div class="sidebar-header">
     <h2 class="sidebar-title">Workspaces</h2>
     <mat-icon (click)="addWorkspaceHandler()">add</mat-icon>

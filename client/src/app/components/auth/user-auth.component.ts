@@ -20,7 +20,6 @@ import { INewUser, IUser, IUserAuthResponse } from './user.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserAuthComponent implements OnInit, OnDestroy {
-  public isSubmitting: boolean = false;
   public showPassword = false;
   public showRepeatPassword = false;
   public isSignUp: boolean = false;
@@ -68,7 +67,9 @@ export class UserAuthComponent implements OnInit, OnDestroy {
           Validators.required,
           Validators.email,
         ]),
-        password: new FormControl<string>('wlyapa@qwe.com', [Validators.required]),
+        password: new FormControl<string>('wlyapa@qwe.com', [
+          Validators.required,
+        ]),
       });
     }
 
@@ -103,12 +104,8 @@ export class UserAuthComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
   public onSubmit(): void {
     if (this.form?.invalid) return;
-
-    this.isSubmitting = true;
 
     const formValue = this.form?.getRawValue();
 
@@ -119,7 +116,7 @@ export class UserAuthComponent implements OnInit, OnDestroy {
       const newUser: INewUser = {
         email,
         password,
-        // username: formValue.username.trim(),
+        username: formValue.username.trim(),
       };
       this._signUp(newUser);
     } else {
@@ -134,50 +131,18 @@ export class UserAuthComponent implements OnInit, OnDestroy {
   }
 
   private _login(user: IUser): void {
-    this._authService
-      .login(user)
-      .pipe(
-        take(1),
-        catchError((error: any) => {
-          this.isSubmitting = false;
-          return [];
-        })
-      )
-      .subscribe({
-        next: (res: IUserAuthResponse) => {
-          if (res.id) {
-            this._router.navigate(['']);
-            this.isSubmitting = false;
-            localStorage.setItem('userId', JSON.stringify(res.id));
-          }
-        },
-        error: (err: any) => {
-          this.isSubmitting = false;
-          this._cdr.markForCheck();
-        },
-      });
+    this._authService.login(user);
   }
 
   private _signUp(user: INewUser): void {
     this._authService
       .register(user)
-      .pipe(
-        take(1),
-        catchError((error: any) => {
-          this.isSubmitting = false;
-          return [];
-        })
-      )
+      .pipe(take(1))
       .subscribe({
         next: (res: IUserAuthResponse) => {
           if (res.id) {
             this._router.navigate(['']);
-            this.isSubmitting = false;
           }
-        },
-        error: (err: any) => {
-          this.isSubmitting = false;
-          this._cdr.markForCheck();
         },
       });
   }
