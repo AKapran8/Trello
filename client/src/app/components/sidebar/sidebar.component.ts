@@ -112,6 +112,6 @@ export class SidebarComponent implements OnInit {
 
   public chooseWorkspace(id: number): void {
     console.log(id)
-    this._router.navigate(['workspaces', id])
+    this._router.navigate(['workspace', id])
   }
 }

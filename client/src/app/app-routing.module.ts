@@ -8,7 +8,8 @@ import { WorkspaceItemComponent } from './components/workspaces/workspace-item/w
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'account/:key', component: UserAuthComponent },
-  { path: 'workspaces/:id', component: WorkspaceItemComponent },
+  { path: 'workspace/:id', component: WorkspaceItemComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
 @NgModule({
