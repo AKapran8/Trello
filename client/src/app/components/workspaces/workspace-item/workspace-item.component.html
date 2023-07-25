@@ -30,7 +30,12 @@
     </div>
 
     <div class="row">
-      <div class="block-elem item" draggable="true">Take me</div>
+      <div class="block-elem" *ngFor="let f of workspace.Folders">
+        <div class="item">
+          <span>Add new task</span>
+          <mat-icon (click)="addNewTask(f.id)">add</mat-icon>
+        </div>
+      </div>
     </div>
   </div>
 </div>

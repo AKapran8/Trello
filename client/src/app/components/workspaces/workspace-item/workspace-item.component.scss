@@ -40,6 +40,9 @@
   color: #828282;
   text-align: center;
   cursor: grab;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .item:active {

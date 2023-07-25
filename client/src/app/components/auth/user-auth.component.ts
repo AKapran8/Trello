@@ -6,12 +6,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription, debounceTime } from 'rxjs';
-import { catchError, take } from 'rxjs/operators';
 
 import { AuthService } from './service/auth.service';
-import { INewUser, IUser, IUserAuthResponse } from './user.model';
+import { INewUser, IUser } from './user.model';
 
 @Component({
   selector: 'app-user-auth',
@@ -31,8 +30,7 @@ export class UserAuthComponent implements OnInit, OnDestroy {
   constructor(
     private _authService: AuthService,
     private _cdr: ChangeDetectorRef,
-    private _route: ActivatedRoute,
-    private _router: Router
+    private _route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -45,7 +43,7 @@ export class UserAuthComponent implements OnInit, OnDestroy {
   private _initForm(): void {
     if (this.isSignUp) {
       this.form = new FormGroup({
-        username: new FormControl<string>('' /*[Validators.required]*/),
+        username: new FormControl<string>('', [Validators.required]),
         email: new FormControl<string>('', [
           Validators.required,
           Validators.email,

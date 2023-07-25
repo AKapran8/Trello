@@ -15,7 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AuthInterceptor } from './interceptors/auth-and-api.interceptor';
 
@@ -29,6 +29,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ConfirmDialog } from './components/shared/dialog/dialog.component';
 import { AddWorkspaceDialogComponent } from './components/workspaces/add-workspace-dialog/add-workspace-dialog.component';
 import { WorkspaceItemComponent } from './components/workspaces/workspace-item/workspace-item.component';
+import { AddTaskDialogComponent } from './components/workspaces/add-task-dialog/add-task-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { WorkspaceItemComponent } from './components/workspaces/workspace-item/w
     ConfirmDialog,
     AddWorkspaceDialogComponent,
     WorkspaceItemComponent,
+    AddTaskDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,7 @@ import { WorkspaceItemComponent } from './components/workspaces/workspace-item/w
     MatInputModule,
     MatIconModule,
     MatDialogModule,
-    MatMenuModule
+    MatMenuModule,
   ],
   providers: [
     {

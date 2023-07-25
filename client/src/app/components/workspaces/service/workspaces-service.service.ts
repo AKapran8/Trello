@@ -7,6 +7,7 @@ import {
   IWorkspaceResponse,
   IWorkspaceByIdResponse,
   IWorkspaceFolder,
+  INewTask,
 } from '../workspace.model';
 
 @Injectable({
@@ -59,4 +60,16 @@ export class WorkspacesService {
   }
 
   /** Folder Functionality end */
+
+  /** Task Functionality start */
+
+  public addTask(
+    workspaceId: number,
+    folderId: number,
+    body: INewTask
+  ): Observable<any> {
+    const url: string = `${this._url}/${workspaceId}/folder/${folderId}`;
+    return this._http.post(url, body);
+  }
+  /** Task Functionality end */
 }
