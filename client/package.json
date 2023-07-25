@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "serve": "ng serve --host 0.0.0.0",
-    "build:dev": "ng build",
-    "build:prod": "ng build --configuration=production"
+    "serve": "npm run update:env & ng serve --host 0.0.0.0",
+    "update:env": "node envParser.js",
+    "build:dev": "npm run update:env & ng build",
+    "build:prod": "npm run update:env & ng build --configuration=production"
   },
   "private": true,
   "dependencies": {

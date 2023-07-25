@@ -2,6 +2,7 @@ const express = require('express')
 const session = require('express-session')
 const cors = require('cors')
 const { apiRouter } = require('./router')
+const { errorHandlers } = require('./error_handlers/handlerRouter')
 const server = express()
 
 server.use(session({
@@ -15,13 +16,8 @@ server.use(cors({ origin: `http://localhost:${process.env.CLIENT_PORT}`, credent
 
 server.use(express.json())
 
-
 server.use("/api", apiRouter)
 
-server.use((err, req, res, next) => {
-    console.error('LAST HANDLER ERROR')
-    res.statusCode = 400
-    res.send(err.message)
-})
+server.use(...errorHandlers)
 
 module.exports = { server }

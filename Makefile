@@ -15,7 +15,7 @@ help: ## Show this help
 #Actions --------------------------------------------------
 check: ## Check your configuration
 	docker-compose $(COMPOSE_CONFIG) config
-up: ## Start all containers (in background)
+up: down ## Start all containers (in background)
 	docker-compose $(COMPOSE_CONFIG) up --build --no-recreate -d
 down: ## Stop all started containers
 	docker-compose $(COMPOSE_CONFIG) down

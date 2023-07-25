@@ -42,7 +42,8 @@ services:
     networks:
       - trello
     environment:
-      - SERVER_URL=${API_SERVICE_CONTAINER}
+      - SERVER_URL
+      - SERVER_PORT=${API_PORT}
     depends_on:
       - api
 
