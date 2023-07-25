@@ -1,0 +1,100 @@
+.workspace {
+  &-container {
+    padding: 3rem 2rem;
+  }
+
+  &-title {
+    font-size: 3rem;
+    font-weight: 700;
+  }
+}
+
+.mat-icon {
+  cursor: pointer;
+}
+
+.row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.col-header {
+  box-shadow: 4px 4px 9px rgba(198, 198, 198, 0.36);
+  border-radius: 20px;
+  padding: 0.8rem 1rem;
+  color: #fff;
+  display: flex;
+  text-align: center;
+  align-items: center;
+}
+
+.item {
+  width: 150px;
+  height: 66px;
+  border: 1px solid #eee;
+  box-shadow: 4px 4px 9px rgba(198, 198, 198, 0.36);
+  border-radius: 20px;
+  background: #f7f6f7;
+  padding: 0.8rem 1rem;
+  color: #828282;
+  text-align: center;
+  cursor: grab;
+}
+
+.item:active {
+  cursor: grabbing;
+}
+
+.block-elem {
+  min-width: 150px;
+  margin-right: 10px;
+}
+
+.current {
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(90deg, #209cff 0%, #68e0cf 100%);
+}
+
+.new {
+  background: linear-gradient(90deg, #ff85e4 0%, #ffc522 179.25%);
+  position: relative;
+
+  & input[type="text"] {
+    background: none;
+    color: white;
+    position: relative;
+    border: none;
+    outline: none;
+    width: 80px;
+  }
+
+  & input[type="text"]::placeholder {
+    color: white;
+    opacity: 0.7;
+  }
+
+  & input[type="text"]:focus::placeholder {
+    opacity: 1;
+  }
+}
+
+.hold {
+  border-color: #4287f5;
+}
+
+.hide {
+  display: none;
+}
+
+.hovered {
+  background-color: #f1f1f1;
+  border-radius: 20px;
+  border-top: 2px solid #4287f5;
+}
+
+.add-folder {
+  background: linear-gradient(90deg, #ff85e4 0%, #229efd 179.25%);
+  cursor: pointer;
+}

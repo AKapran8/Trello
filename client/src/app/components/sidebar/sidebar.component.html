@@ -5,7 +5,9 @@
   </div>
   <div class="sidebar-content" *ngIf="workspaces">
     <div *ngFor="let w of workspaces">
-      {{ w.title }}
+      <a (click)="chooseWorkspace(w.id)">
+        {{ w.title }}
+      </a>
       <button
         mat-icon-button
         [matMenuTriggerFor]="menu"
@@ -14,7 +16,7 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="deleteWorkspace(w.id, w.title)" >
+        <button mat-menu-item (click)="deleteWorkspace(w.id, w.title)">
           <mat-icon>delete</mat-icon>
           <span>Remove</span>
         </button>

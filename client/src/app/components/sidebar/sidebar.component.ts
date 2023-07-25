@@ -11,6 +11,7 @@ import { AddWorkspaceDialogComponent } from '../workspaces/add-workspace-dialog/
 import { WorkspacesService } from '../workspaces/service/workspaces-service.service';
 import { IWorkspace } from '../workspaces/workspace.model';
 import { ConfirmDialog } from '../shared/dialog/dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -24,7 +25,8 @@ export class SidebarComponent implements OnInit {
   constructor(
     private _cdr: ChangeDetectorRef,
     private _workspacesService: WorkspacesService,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -92,5 +94,10 @@ export class SidebarComponent implements OnInit {
     dialogRef.afterClosed().subscribe((res: boolean) => {
       if (res) this._getWorkspaces();
     });
+  }
+
+  public chooseWorkspace(id: number): void {
+    console.log(id)
+    this._router.navigate(['workspaces', id])
   }
 }
