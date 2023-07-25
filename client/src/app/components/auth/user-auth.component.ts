@@ -135,16 +135,7 @@ export class UserAuthComponent implements OnInit, OnDestroy {
   }
 
   private _signUp(user: INewUser): void {
-    this._authService
-      .register(user)
-      .pipe(take(1))
-      .subscribe({
-        next: (res: IUserAuthResponse) => {
-          if (res.id) {
-            this._router.navigate(['']);
-          }
-        },
-      });
+    this._authService.register(user);
   }
 
   ngOnDestroy(): void {
