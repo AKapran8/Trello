@@ -20,6 +20,10 @@ export class WorkspacesService {
     return this._http.get<IWorkspaceResponse>(this._url);
   }
 
+  public getWorkspaceById(id: number): Observable<any> {
+    return this._http.get<any>(`${this._url}/${id}`);
+  }
+
   public removeWorkspace(id: number): Observable<any> {
     return this._http.delete<IWorkspaceResponse>(`${this._url}/${id}`);
   }

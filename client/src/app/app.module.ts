@@ -28,7 +28,7 @@ import { UserAuthComponent } from './components/auth/user-auth.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ConfirmDialog } from './components/shared/dialog/dialog.component';
 import { AddWorkspaceDialogComponent } from './components/workspaces/add-workspace-dialog/add-workspace-dialog.component';
-import { WorkspaceItemComponent } from './components/workspace-item/workspace-item.component';
+import { WorkspaceItemComponent } from './components/workspaces/workspace-item/workspace-item.component';
 
 @NgModule({
   declarations: [
