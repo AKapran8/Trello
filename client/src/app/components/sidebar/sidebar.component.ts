@@ -12,6 +12,7 @@ import { WorkspacesService } from '../workspaces/service/workspaces-service.serv
 import { IWorkspace } from '../workspaces/workspace.model';
 import { ConfirmDialog } from '../shared/dialog/dialog.component';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/service/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,17 +21,30 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent implements OnInit {
+  public isAuthorized: boolean = false;
   public workspaces: IWorkspace[] = [];
 
   constructor(
-    private _cdr: ChangeDetectorRef,
     private _workspacesService: WorkspacesService,
+    private _authService: AuthService,
+    private _cdr: ChangeDetectorRef,
     private _dialog: MatDialog,
     private _router: Router
   ) {}
 
   ngOnInit(): void {
-    this._getWorkspaces();
+    this._getUserAuthStatus();
+  }
+
+  private _getUserAuthStatus(): void {
+    this.isAuthorized = this._authService.getAuthStatus();
+    this._authService.authInfoStream().subscribe((res) => {
+      this.isAuthorized = res;
+      this._cdr.markForCheck();
+    });
+    this._cdr.markForCheck();
+
+    if (this.isAuthorized) this._getWorkspaces();
   }
 
   private _getWorkspaces(): void {
@@ -98,6 +112,6 @@ export class SidebarComponent implements OnInit {
 
   public chooseWorkspace(id: number): void {
     console.log(id)
-    this._router.navigate(['workspaces', id])
+    this._router.navigate(['workspace', id])
   }
 }

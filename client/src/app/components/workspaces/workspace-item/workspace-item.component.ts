@@ -11,8 +11,13 @@ import {
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { WorkspacesService } from '../service/workspaces-service.service';
-import { IWorkspace } from '../workspace.model';
+import { INewTask, IWorkspace } from '../workspace.model';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  AddTaskDialogComponent,
+  ITaskDialogData,
+} from '../add-task-dialog/add-task-dialog.component';
 
 @Component({
   selector: 'app-workspace-item',
@@ -32,6 +37,7 @@ export class WorkspaceItemComponent implements OnInit, OnDestroy {
 
   constructor(
     private _workspaceService: WorkspacesService,
+    private _dialog: MatDialog,
     private _route: ActivatedRoute,
     private _cdr: ChangeDetectorRef
   ) {}
@@ -95,9 +101,21 @@ export class WorkspaceItemComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe((res) => {
         this.showAddNewFolder = false;
-        this.workspace!.Folders = this.workspace?.Folders?.filter(f => f.id !== folderId) || [];
+        this.workspace!.Folders =
+          this.workspace?.Folders?.filter((f) => f.id !== folderId) || [];
         this._cdr.markForCheck();
       });
+  }
+
+  public addNewTask(folderId: number): void {
+    const dialogRef = this._dialog.open(AddTaskDialogComponent, {
+      data: {
+        workspaceId: this._workspaceId,
+        folderId,
+      } as ITaskDialogData,
+    });
+
+    dialogRef.afterClosed().subscribe((res: boolean) => {});
   }
 
   ngOnDestroy(): void {

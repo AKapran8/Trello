@@ -23,3 +23,8 @@ export interface IWorkspaceFolder {
   title: string;
   Tasks: any[];
 }
+
+export interface INewTask {
+  title: string;
+  description: string;
+}
